@@ -64,9 +64,6 @@ pomo2be/
 
 ## 💡 Ideas futuras
 
-* 🎯 Integración completa con backend Express + youtubei.js
-* 🎵 Reproductor simple de YouTube filtrado por duración
-* 📂 Guardado local de búsquedas recientes
 * 🎨 Selector de temas (modo claro/oscuro)
 
 
