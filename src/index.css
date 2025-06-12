@@ -1,0 +1,204 @@
+/* Estilos generales para html y body */
+html,
+body {
+  margin: 0;
+  /* Elimina el margen por defecto */
+  padding: 0;
+  /* Elimina el padding por defecto */
+  height: 100%;
+  /* Ocupa el 100% del alto de la ventana */
+  font-family: sans-serif;
+  /* Fuente general sans-serif */
+  overflow: hidden;
+  /* Oculta el scroll */
+}
+
+/* Contenedor principal con diseño en grid */
+#container {
+  display: grid;
+  /* Usa grid layout */
+  grid-template-columns: 1fr 2fr;
+  /* Divide en dos columnas: 1 parte izquierda, 2 partes derecha */
+  height: 100vh;
+  /* Altura completa de la ventana */
+  width: 100vw;
+  /* Ancho completo de la ventana */
+}
+
+/* Panel izquierdo: controles y temporizador */
+#left {
+  background-color: #eee;
+  /* Fondo gris claro */
+  padding: 2rem;
+  /* Espaciado interno */
+  box-sizing: border-box;
+  /* Incluye padding en el ancho total */
+  display: flex;
+  /* Flexbox para alinear elementos */
+  flex-direction: column;
+  /* Dirección vertical */
+  align-items: center;
+  /* Centra horizontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  font-size: 2rem;
+  /* Tamaño base del texto */
+  font-weight: bold;
+  /* Texto en negrita */
+  color: #333;
+  /* Color gris oscuro para el texto */
+  gap: 1rem;
+  /* Espacio entre elementos */
+}
+
+/* Contenedor de configuraciones de usuario */
+#settings {
+  display: flex;
+  /* Flexbox para layout */
+  flex-direction: column;
+  /* Elementos uno debajo del otro */
+  align-items: center;
+  /* Centrado horizontal */
+  gap: 0.4rem;
+  /* Espacio vertical entre inputs */
+  font-size: 1rem;
+  /* Tamaño de texto estándar */
+  margin-bottom: 1rem;
+  /* Espacio debajo del bloque */
+}
+
+/* Inputs de configuración (trabajo, descanso) */
+#settings input {
+  width: 5rem;
+  /* Ancho fijo para inputs */
+  text-align: center;
+  /* Texto centrado dentro del input */
+  padding: 0.3rem;
+  /* Espaciado interno */
+  font-size: 1rem;
+  /* Tamaño de texto */
+}
+
+/* Estilo para el contador de ciclos y total de ciclos */
+#cycleCounter,
+#cycleTotal {
+  margin-top: 1rem;
+  /* Espacio superior */
+  font-size: 1.2rem;
+  /* Tamaño más grande del texto */
+  color: #0073e6;
+  /* Azul vibrante */
+  font-weight: 600;
+  /* Seminegrita */
+}
+
+/* Contenedor de la barra de progreso */
+#progressBarContainer {
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
+  height: 20px;
+  /* Altura fija */
+  background-color: #ddd;
+  /* Fondo gris claro */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  overflow: hidden;
+  /* Oculta el contenido que se sale */
+  margin-top: 0.5rem;
+  /* Espacio superior */
+}
+
+/* Barra de progreso dinámica */
+#progressBar {
+  height: 100%;
+  /* Altura completa del contenedor */
+  width: 0%;
+  /* Comienza vacía */
+  background-color: #0073e6;
+  /* Azul como indicador de progreso */
+  transition: width 0.3s ease-in-out;
+  /* Animación suave al cambiar el ancho */
+}
+
+/* Temporizador principal */
+#timer {
+  font-size: 4rem;
+  /* Tamaño grande para el reloj */
+  font-weight: 900;
+  /* Muy negrita */
+  font-family: 'Courier New', Courier, monospace;
+  /* Fuente monoespaciada tipo reloj digital */
+  user-select: none;
+  /* Previene seleccionar el texto del temporizador */
+}
+
+/* Estilos generales para los botones */
+button {
+  padding: 0.5rem 1.2rem;
+  /* Espaciado interno */
+  margin: 0 0.25rem;
+  /* Espaciado horizontal entre botones */
+  font-size: 1rem;
+  /* Tamaño del texto */
+  font-weight: 600;
+  /* Texto seminegrita */
+  border-radius: 8px;
+  /* Bordes redondeados */
+  border: none;
+  /* Sin borde */
+  cursor: pointer;
+  /* Cursor tipo "mano" */
+  background-color: #0073e6;
+  /* Azul como fondo */
+  color: white;
+  /* Texto blanco */
+  transition:
+    /* Transiciones suaves */
+    background-color 0.3s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+button:hover {
+  background-color: #005bb5;
+  /* Azul más oscuro al hacer hover */
+}
+
+/* Estilo al hacer clic en el botón */
+button:active {
+  transform: scale(0.96);
+  /* Ligeramente más pequeño */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Sombra más intensa */
+}
+
+/* Contenedor de botones (start, pause, reset) */
+#buttons {
+  display: flex;
+  /* Botones en línea */
+  gap: 0.5rem;
+  /* Espacio entre ellos */
+  margin-top: 1rem;
+  /* Espacio superior */
+}
+
+/* Panel derecho: para el WebView (YouTube) */
+#right {
+  border-left: 2px solid #ccc;
+  /* Borde separador izquierdo */
+  position: relative;
+  /* Permite posicionamiento absoluto dentro */
+}
+
+/* Webview embebido (por ejemplo: video de YouTube) */
+webview {
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
+  height: 100vh;
+  /* Ocupa todo el alto de la pantalla */
+  border: none;
+  /* Sin bordes */
+}
