@@ -1,4 +1,18 @@
+/* manrope-latin-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: auto;
+  font-weight: 200 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/manrope:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Estilos generales para html y body */
+* {
+  font-family: 'Manrope Variable', sans-serif;
+}
+
 html,
 body {
   margin: 0;
@@ -7,7 +21,7 @@ body {
   /* Elimina el padding por defecto */
   height: 100%;
   /* Ocupa el 100% del alto de la ventana */
-  font-family: sans-serif;
+  /* font-family: 'Manrope Variable', sans-serif; */
   /* Fuente general sans-serif */
   overflow: hidden;
   /* Oculta el scroll */
@@ -23,13 +37,15 @@ body {
   /* Altura completa de la ventana */
   width: 100vw;
   /* Ancho completo de la ventana */
+  /* border: 2px solid blue; */
 }
 
 /* Panel izquierdo: controles y temporizador */
 #left {
-  background-color: #eee;
-  /* Fondo gris claro */
-  padding: 2rem;
+  background-color: #0f0f1b;
+  /* Fondo oscuro retro */
+
+  padding: 0 2rem;
   /* Espaciado interno */
   box-sizing: border-box;
   /* Incluye padding en el ancho total */
@@ -39,45 +55,86 @@ body {
   /* Dirección vertical */
   align-items: center;
   /* Centra horizontalmente */
-  justify-content: center;
+  /* justify-content: center; */
   /* Centra verticalmente */
-  font-size: 2rem;
+  font-size: 1rem;
   /* Tamaño base del texto */
   font-weight: bold;
   /* Texto en negrita */
-  color: #333;
-  /* Color gris oscuro para el texto */
-  gap: 1rem;
+  color: #e0e0ff;
+  /* Texto claro azuloso */
+  /* gap: 0.5rem; */
   /* Espacio entre elementos */
 }
+
+
 
 /* Contenedor de configuraciones de usuario */
 #settings {
   display: flex;
   /* Flexbox para layout */
-  flex-direction: column;
+  flex-direction: row;
   /* Elementos uno debajo del otro */
-  align-items: center;
+  /* flex-wrap: wrap; */
+  align-items: flex-end;
   /* Centrado horizontal */
-  gap: 0.4rem;
+  /* justify-content: end; */
+  /* Centra verticalmente */
+  gap: 1rem;
   /* Espacio vertical entre inputs */
   font-size: 1rem;
   /* Tamaño de texto estándar */
   margin-bottom: 1rem;
   /* Espacio debajo del bloque */
+  /* border: 2px solid blue; */
+}
+
+
+.labelsInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  /* justify-content: center; */
+  align-items: center;
+
+}
+
+/* Etiquetas de texto */
+.labelsInputs label {
+  color: #ff6ec7;
+  /* Rosa neón */
+  font-weight: 600;
 }
 
 /* Inputs de configuración (trabajo, descanso) */
 #settings input {
-  width: 5rem;
+  /* width: 5rem; */
   /* Ancho fijo para inputs */
   text-align: center;
   /* Texto centrado dentro del input */
-  padding: 0.3rem;
+  padding: 0.5rem 1.2rem;
   /* Espaciado interno */
+  /* margin: 0 0.25rem; */
+  /* Espaciado horizontal entre botones */
   font-size: 1rem;
-  /* Tamaño de texto */
+  /* Tamaño del texto */
+  font-weight: 600;
+  /* Texto seminegrita */
+  border-radius: 8px;
+  /* Bordes redondeados */
+  /* border: none; */
+  /* Sin borde */
+  background-color: #1c1c2e;
+  color: #e0e0ff;
+  border: 1px solid #ff6ec7;
+  box-shadow: 0 0 5px rgba(255, 110, 199, 0.3);
 }
+
+/* input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
 
 /* Estilo para el contador de ciclos y total de ciclos */
 #cycleCounter,
@@ -86,10 +143,14 @@ body {
   /* Espacio superior */
   font-size: 1.2rem;
   /* Tamaño más grande del texto */
-  color: #0073e6;
-  /* Azul vibrante */
+  color: #00f0ff;
+  /* Cian brillante */
   font-weight: 600;
   /* Seminegrita */
+}
+
+section {
+  width: 100%;
 }
 
 /* Contenedor de la barra de progreso */
@@ -98,7 +159,7 @@ body {
   /* Ocupa todo el ancho disponible */
   height: 20px;
   /* Altura fija */
-  background-color: #ddd;
+  background-color: #2a2a40;
   /* Fondo gris claro */
   border-radius: 10px;
   /* Bordes redondeados */
@@ -114,8 +175,9 @@ body {
   /* Altura completa del contenedor */
   width: 0%;
   /* Comienza vacía */
-  background-color: #0073e6;
-  /* Azul como indicador de progreso */
+  background-color: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+
   transition: width 0.3s ease-in-out;
   /* Animación suave al cambiar el ancho */
 }
@@ -126,10 +188,13 @@ body {
   /* Tamaño grande para el reloj */
   font-weight: 900;
   /* Muy negrita */
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace; */
   /* Fuente monoespaciada tipo reloj digital */
   user-select: none;
   /* Previene seleccionar el texto del temporizador */
+  color: #ff6ec7;
+  /* Magenta retro */
+  text-shadow: 0 0 10px #ff6ec7;
 }
 
 /* Estilos generales para los botones */
@@ -148,10 +213,9 @@ button {
   /* Sin borde */
   cursor: pointer;
   /* Cursor tipo "mano" */
-  background-color: #0073e6;
-  /* Azul como fondo */
+  background-color: #ff007f;
   color: white;
-  /* Texto blanco */
+  box-shadow: 0 0 12px rgba(255, 0, 128, 0.3);
   transition:
     /* Transiciones suaves */
     background-color 0.3s ease,
@@ -163,8 +227,8 @@ button {
 
 /* Estilo al pasar el mouse sobre el botón */
 button:hover {
-  background-color: #005bb5;
-  /* Azul más oscuro al hacer hover */
+  background-color: #cc0066;
+  box-shadow: 0 0 16px rgba(255, 0, 128, 0.5);
 }
 
 /* Estilo al hacer clic en el botón */
