@@ -83,8 +83,11 @@
 
     <div id="right">
       <!-- Columna derecha: vista web embebida -->
+      <webview id="youtube" src="https://www.youtube.com" style="width:100%; height:100%;" allowpopups
+        webpreferences="contextIsolation=no"></webview>
 
-      <webview src="https://www.youtube.com" allowpopups></webview>
+      <button id="cinemaBtn">🎬</button>
+      <!-- <webview src="https://www.youtube.com" allowpopups></webview> -->
       <!-- WebView de Electron para mostrar YouTube dentro de la app -->
     </div>
   </div>

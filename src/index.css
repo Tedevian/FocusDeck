@@ -266,3 +266,24 @@ webview {
   border: none;
   /* Sin bordes */
 }
+
+#cinemaBtn {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  background-color: #222;
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #ff6ec7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ff6ec7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#cinemaBtn:hover {
+  background-color: #ff6ec7;
+  color: #222;
+}

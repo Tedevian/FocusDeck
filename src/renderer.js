@@ -172,3 +172,70 @@ startBtn.addEventListener('click', startTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
+
+
+
+
+
+
+// aquii again 
+
+const cinemaBtn = document.getElementById('cinemaBtn');
+const webview = document.querySelector('webview');
+let isCinema = false;
+
+cinemaBtn.addEventListener('click', async () => {
+  if (!webview) return;
+
+  isCinema = !isCinema;
+  cinemaBtn.textContent = isCinema ? '🔙' : '🎬';
+
+  if (webview.isLoading()) {
+    await new Promise(resolve => {
+      webview.addEventListener('did-finish-load', resolve, { once: true });
+    });
+  }
+
+  const jsCode = `
+    (function () {
+      const ID = 'cinema-style';
+
+      // Eliminar estilos anteriores
+      document.getElementById(ID)?.remove();
+
+      if (${isCinema}) {
+        // Estilos CSS
+        const style = document.createElement('style');
+        style.id = ID;
+        style.textContent = \`
+          #masthead-container, ytd-masthead, ytd-app[role="main"] > tp-yt-app-drawer, ytd-mini-guide-renderer,
+          ytd-merch-shelf-renderer, ytd-video-secondary-info-renderer, ytd-comments,
+          ytd-watch-next-secondary-results-renderer, #chat, #panels, ytd-watch-metadata,
+          #info, #meta, ytd-engagement-panel-section-list-renderer, tp-yt-paper-tabs,
+          ytd-reel-shelf-renderer, #below {
+            display: none !important;
+          }
+
+          ytd-app, html, body {
+            overflow: hidden !important;
+            // height: 100% !important;
+            max-height: 100vh !important;
+            background: black !important;
+            
+          }
+
+          #player {
+            position: relative !important;
+            z-index: 9999 !important;
+            
+          }
+        \`;
+        document.head.appendChild(style);
+      }
+    })();
+  `;
+
+  webview.executeJavaScript(jsCode).catch(err => {
+    console.error('Error aplicando modo cine sin blur:', err);
+  });
+});
