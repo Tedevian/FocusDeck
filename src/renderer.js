@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       if (clickSound) {
         clickSound.currentTime = 0;
-        clickSound.volume = 0.2;
+        clickSound.volume = 0.5;
         clickSound.play();
       }
     });
@@ -51,13 +51,13 @@ function updateDisplay() {
 
 // Actualiza la visualización de ciclos y barra de progreso
 function updateCycleCounter() {
-  cycleCounter.textContent = `Ciclos completados: ${completedCycles}`;
+  cycleCounter.textContent = `Cycles completed: ${completedCycles}`;
   const percent = (completedCycles / totalCycles) * 100;
   progressBar.style.width = `${percent}%`;
 
   const cycleTotal = document.getElementById('cycleTotal');
   if (cycleTotal) {
-    cycleTotal.textContent = `Ciclos totales: ${totalCycles}`;
+    cycleTotal.textContent = `Total cycles: ${totalCycles}`;
   }
 }
 
