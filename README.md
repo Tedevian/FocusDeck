@@ -64,4 +64,4 @@ You can also adapt it for your own desktop tools.
 
 ## 📜 License
 
-MIT — free to use, modify, and share. No YouTube Premium connection required.
+MIT [LICENSE](./License) — free to use, modify, and share. No YouTube Premium connection required.
