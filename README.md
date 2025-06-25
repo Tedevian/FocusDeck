@@ -73,7 +73,7 @@ Thanks for helping to improve FocusDeck!
 
 ## 📄 license
 
-This project is licensed under the MIT license. See the [License](License) file for more details.
+This project is licensed under the MIT license. See the [License](LICENSE) file for more details.
 
 ## ✍️ Author
 
