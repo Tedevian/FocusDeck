@@ -262,9 +262,34 @@ function injectCinemaStyle() {
   const jsCode = `
     (function () {
       const ID = 'cinema-style';
+      const WRAP_ID = 'cinema-fixed-wrap';
 
       // Eliminar estilos anteriores
       document.getElementById(ID)?.remove();
+
+      // Cancela reintentos pendientes del toggle anterior
+      if (window.__cinemaRetry) {
+        clearTimeout(window.__cinemaRetry);
+        window.__cinemaRetry = null;
+      }
+
+      function applyWrapper() {
+        if (document.getElementById(WRAP_ID)) return;
+
+        const mp = document.querySelector('#movie_player');
+        if (!mp) {
+          // El reproductor aún no carga; reintenta hasta que exista.
+          window.__cinemaRetry = setTimeout(applyWrapper, 1000);
+          return;
+        }
+
+        const w = document.createElement('div');
+        w.id = WRAP_ID;
+        w.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; z-index:9999; background:black; pointer-events:none;';
+        mp.parentNode.insertBefore(w, mp);
+        w.appendChild(mp);
+        mp.style.pointerEvents = 'auto';
+      }
 
       if (${isCinema}) {
         // Estilos CSS
@@ -285,12 +310,23 @@ function injectCinemaStyle() {
             background: black !important;
           }
 
-          #player {
-            position: relative !important;
-            z-index: 9999 !important;
+          #movie_player {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 16 / 9 !important;
           }
         \`;
         document.head.appendChild(style);
+        applyWrapper();
+      } else {
+        // Revertir: devolver el reproductor a su lugar original
+        const w = document.getElementById(WRAP_ID);
+        if (w) {
+          const mp = w.querySelector('#movie_player');
+          const target = document.querySelector('ytd-player #container');
+          if (mp && target) target.appendChild(mp);
+          w.remove();
+        }
       }
     })();
   `;

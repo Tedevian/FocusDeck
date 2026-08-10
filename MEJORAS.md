@@ -86,3 +86,15 @@ Documento que resume las mejoras aplicadas y en qué archivos se hicieron los ca
 - **Botones de ventana**: minimizar, maximizar/restaurar y cerrar en SVG, con hover neón (cian para minimizar/maximizar, rosa para cerrar) y anillo de foco para teclado. El ícono de maximizar alterna entre `□` y `❐` según el estado real de la ventana.
 - **Ajuste de layout**: el cuerpo ahora es columna flex (barra + contenido), y el contenedor usa `flex: 1` en lugar de `height: 100vh`. El toast se desplazó debajo de la barra.
 - **Verificado en vivo**: menú `null`, maximizar/restaurar/minimizar funcionan, y el webview sigue llenando el panel derecho (660px = 700 - 40px de la barra).
+
+## 10. Modo cine: video de YouTube centrado verticalmente
+
+**Archivo:** `src/renderer.js`
+
+- **Problema:** en modo cine el video quedaba pegado arriba (top ~60px) con un hueco negro enorme debajo (bottom ~177px), porque el layout de YouTube (offsets del masthead, contenedores absolutos) empuja el reproductor hacia abajo y lo estira.
+- **Causas investigadas (diagnóstico en vivo):** forzar `height: 100vh` o `display:flex` en los contenedores de YouTube desencadenaba recálculos de YouTube que colapsaban `#player-container` a ancho/alto 0, y el `top: 50%` se resolvía contra `ytd-app` (823px) en vez del viewport (598px).
+- **Solución final:** se mueve `#movie_player` dentro de un **wrapper nuevo** `#cinema-fixed-wrap` (`position: fixed; inset: 0; display: flex; align-items: center`), totalmente ajeno al layout de YouTube, y se fuerza su tamaño al ratio 16:9:
+  - `#movie_player { width: 100%; height: auto; aspect-ratio: 16 / 9 }`.
+  - El wrapper tiene `pointer-events: none` y el reproductor `pointer-events: auto`, así los controles siguen funcionando.
+- **Idempotencia y robustez:** la función `injectCinemaStyle()` no crea un segundo wrapper si ya existe; si `#movie_player` aún no ha cargado, reintenta cada 1s; al salir del modo cine devuelve el reproductor a `ytd-player #container` y borra el wrapper. Los reintentos pendientes del toggle anterior se cancelan para evitar cierres dobles.
+- **Verificado en vivo (2 runs idénticos):** `topSpace: 118.25px` ≈ `bottomSpace: 118.75px` → video centrado verticalmente en el viewport del guest.
