@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "vercel-skills": {
+      "source": "podo/design-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vercel-skills/SKILL.md",
+      "computedHash": "0dd4d317df32ad6afb06b1707e38111ec5611d758fc7392cd0f02d7773b1b493"
+    }
+  }
+}

@@ -6,9 +6,18 @@
 <head>
   <meta charset="UTF-8" />
   <!-- Establece la codificación de caracteres en UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Pomodoro 2</title>
+  <title>FocusDeck</title>
   <!-- Título de la pestaña del navegador o ventana de la app -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Orbitron:wght@500;600;700;800;900&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Fuentes: Manrope (cuerpo), Orbitron (display/neón) y Share Tech Mono (dígitos) -->
 
   <link rel="stylesheet" href="index.css" />
   <!-- Enlaza la hoja de estilos CSS externa -->
@@ -21,71 +30,86 @@
     <div id="left">
       <!-- Columna izquierda: controles y temporizador -->
 
-      <h1>Pomodoro 2</h1>
-      <!-- Título principal -->
+      <div class="bg-sun" aria-hidden="true"></div>
+      <!-- Sol retrowave de fondo -->
 
-      <div id="settings">
-        <!-- Contenedor de configuraciones -->
+      <div class="bg-grid" aria-hidden="true"></div>
+      <!-- Rejilla de horizonte de fondo -->
 
-        <div class="labelsInputs">
-          <label for="hoursSelect">Hours</label>
-          <input type="number" id="hoursSelect" min="1" max="8" value="1" />
-          <!-- Input para definir las horas totales de la sesión Pomodoro (entre 1 y 8) -->
+      <div class="crt-overlay" aria-hidden="true"></div>
+      <!-- Overlay CRT (solo en el panel izquierdo): scanlines y viñeta -->
+
+      <div class="left-content">
+        <h1>FocusDeck</h1>
+        <!-- Título principal -->
+
+        <div id="settings">
+          <!-- Contenedor de configuraciones -->
+
+          <div class="labelsInputs">
+            <label for="hoursSelect">Hours</label>
+            <input type="number" id="hoursSelect" min="1" max="8" value="1" />
+            <!-- Input para definir las horas totales de la sesión Pomodoro (entre 1 y 8) -->
+          </div>
+
+          <div class="labelsInputs">
+            <label for="workDuration">Deep Work</label>
+            <input type="number" id="workDuration" min="1" max="90" value="25" />
+            <!-- Input para duración del tiempo de trabajo (entre 1 y 90 minutos) -->
+          </div>
+
+          <div class="labelsInputs">
+            <label for="breakDuration">Break Time</label>
+            <input type="number" id="breakDuration" min="1" max="30" value="5" />
+            <!-- Input para duración del descanso (entre 1 y 30 minutos) -->
+          </div>
+
+          <button id="setTimeBtn">Apply</button>
+          <!-- Botón para aplicar los valores ingresados -->
         </div>
 
-        <div class="labelsInputs">
-          <label for="workDuration">Deep Work</label>
-          <input type="number" id="workDuration" min="1" max="90" value="25" />
-          <!-- Input para duración del tiempo de trabajo (entre 1 y 90 minutos) -->
+        <section>
+          <p>
+            <span id="cycleCounter">Cycles completed: 0</span><br>
+            <!-- Muestra la cantidad de ciclos completados -->
+
+            <span id="cycleTotal">Total cycles: 0</span>
+            <!-- Muestra la cantidad total de ciclos programados -->
+          </p>
+
+          <div id="progressBarContainer">
+            <!-- Contenedor de la barra de progreso visual -->
+            <div id="progressBar"></div>
+            <!-- Barra que se va llenando a medida que se completan ciclos -->
+          </div>
+        </section>
+
+        <div id="timerBlock">
+          <span id="modeLabel" class="work">DEEP WORK</span>
+          <!-- Indicador del modo actual: trabajo / descanso / sesión completa -->
+
+          <div id="timer">25:00</div>
+          <!-- Temporizador que muestra el tiempo restante actual -->
         </div>
 
-        <div class="labelsInputs">
-          <label for="breakDuration">Break Time</label>
-          <input type="number" id="breakDuration" min="1" max="30" value="5" />
-          <!-- Input para duración del descanso (entre 1 y 30 minutos) -->
+        <div id="buttons">
+          <!-- Botones de control para el temporizador -->
+          <button id="startBtn">Start</button>
+          <!-- Starts the timer -->
+
+          <button id="pauseBtn">Pause</button>
+          <!-- Pauses the timer -->
+
+          <button id="resetBtn">Reset</button>
+          <!-- Resets the timer and settings -->
+          <!-- Reinicia el temporizador y la configuración -->
         </div>
-
-        <button id="setTimeBtn">Apply</button>
-        <!-- Botón para aplicar los valores ingresados -->
-      </div>
-
-      <section>
-        <p>
-          <span id="cycleCounter">Cycles completed: 0</span><br>
-          <!-- Muestra la cantidad de ciclos completados -->
-
-          <span id="cycleTotal">Total cycles: 0</span>
-          <!-- Muestra la cantidad total de ciclos programados -->
-        </p>
-
-        <div id="progressBarContainer">
-          <!-- Contenedor de la barra de progreso visual -->
-          <div id="progressBar"></div>
-          <!-- Barra que se va llenando a medida que se completan ciclos -->
-        </div>
-      </section>
-
-      <div id="timer">25:00</div>
-      <!-- Temporizador que muestra el tiempo restante actual -->
-
-      <div id="buttons">
-        <!-- Botones de control para el temporizador -->
-        <button id="startBtn">Start</button>
-        <!-- Starts the timer -->
-
-        <button id="pauseBtn">Pause</button>
-        <!-- Pauses the timer -->
-
-        <button id="resetBtn">Reset</button>
-        <!-- Resets the timer and settings -->
-        <!-- Reinicia el temporizador y la configuración -->
       </div>
     </div>
 
     <div id="right">
       <!-- Columna derecha: vista web embebida -->
-      <webview id="youtube" src="https://www.youtube.com" style="width:100%; height:100%;" allowpopups
-        webpreferences="contextIsolation=no"></webview>
+      <webview id="youtube" src="https://www.youtube.com" allowpopups></webview>
 
       <button id="cinemaBtn">🎬</button>
       <!-- <webview src="https://www.youtube.com" allowpopups></webview> -->
@@ -98,6 +122,9 @@
 
   <audio id="alertSound" src="click.mp3" preload="auto"></audio>
   <!-- Sonido de alerta al cambiar entre trabajo y descanso -->
+
+  <div id="toast" aria-live="polite"></div>
+  <!-- Notificación no bloqueante (reemplaza a los alert() ) -->
 
   <script src="renderer.js"></script>
   <!-- Enlace al script principal que maneja la lógica de la app -->

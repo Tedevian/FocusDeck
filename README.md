@@ -1,4 +1,4 @@
-# ⏱️ FocusDek (Pomodoro) – Desktop App with Electron
+# ⏱️ FocusDeck (Pomodoro) – Desktop App with Electron
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Author: tedevs0](https://img.shields.io/badge/Author-tedevs0-blue.svg)](https://github.com/tedevs0)
@@ -42,12 +42,14 @@ npm start
 ## 📁 Project Structure
 
 ```
-pomo2be/
-├── index.html           # Main interface
-├── main.js              # Electron main process
-├── preload.js           # Secure communication between processes
-├── package.json
-└── ...
+FocusDeck/
+├── src/index.html       # Main interface
+├── src/index.js         # Electron main process
+├── src/index.css        # Styles
+├── src/preload.js       # Secure communication between processes
+├── src/renderer.js      # Renderer logic (timer + cinema mode)
+├── forge.config.js      # Electron Forge packaging config
+└── package.json
 ```
 
 ## 💡 Future Ideas
