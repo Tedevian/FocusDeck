@@ -231,6 +231,27 @@ startBtn.addEventListener('click', startTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
+// ---------- Controles de la barra de título ----------
+const winMinBtn = document.getElementById('winMinimize');
+const winMaxBtn = document.getElementById('winMaximize');
+const winCloseBtn = document.getElementById('winClose');
+const winMaxIcon = document.getElementById('winMaxIcon');
+const winRestoreIcon = document.getElementById('winRestoreIcon');
+
+if (window.focusdeckWindow) {
+  winMinBtn?.addEventListener('click', () => window.focusdeckWindow.minimize());
+  winMaxBtn?.addEventListener('click', () => window.focusdeckWindow.toggleMaximize());
+  winCloseBtn?.addEventListener('click', () => window.focusdeckWindow.close());
+
+  // Alterna el ícono entre maximizar (□) y restaurar (❐) según el estado real.
+  window.focusdeckWindow.onMaximizedChange((isMax) => {
+    if (winMaxIcon) winMaxIcon.style.display = isMax ? 'none' : 'block';
+    if (winRestoreIcon) winRestoreIcon.style.display = isMax ? 'block' : 'none';
+    winMaxBtn?.setAttribute('aria-label', isMax ? 'Restore' : 'Maximize');
+    winMaxBtn?.setAttribute('title', isMax ? 'Restore' : 'Maximize');
+  });
+}
+
 // ---------- Modo cine para YouTube ----------
 const cinemaBtn = document.getElementById('cinemaBtn');
 const webview = document.querySelector('webview');

@@ -74,3 +74,15 @@ Documento que resume las mejoras aplicadas y en qué archivos se hicieron los ca
 - **Causa real del área negra:** el CSS del webview tenía `display: block`. El elemento `<webview>` de Electron usa internamente `display: flex`, y al forzarlo a `block` el contenido (guest) se quedaba con el tamaño por defecto (300x150) sin redimensionarse → solo se veía ~20% de YouTube y el resto negro.
 - **Solución:** se quitó `display: block` del CSS de `webview` y se dejó con `position: absolute; inset: 0; width: 100%; height: 100%`.
 - Se verificó con diagnóstico en vivo (Electron) que: el viewport del guest (638px) coincide con el tamaño del elemento (638px), y el modo cine sigue ocultando el masthead y dejando solo el video con fondo negro. El área negra pasó de **67.9% a 0%** del panel.
+
+## 9. Barra de título custom (synthwave) y sin menú de Electron
+
+**Archivos:** `src/index.js`, `src/preload.js`, `src/index.html`, `src/index.css`, `src/renderer.js`
+
+- **Menú eliminado**: `Menu.setApplicationMenu(null)` quita la barra File/Edit/View de Electron.
+- **Ventana frameless**: `frame: false` quita el marco del sistema y los botones nativos, para dibujar los nuestros.
+- **Controles por IPC** (`src/index.js` + `src/preload.js`): handlers `window-minimize`, `window-toggle-maximize` y `window-close`, expuestos al renderer mediante `contextBridge` como `window.focusdeckWindow`.
+- **Barra de título custom** (`src/index.html` + CSS): altura 40px, degradado oscuro con borde inferior magenta, logo y título "FocusDeck" en Orbitron, y región arrastrable (`-webkit-app-region: drag`) para mover la ventana.
+- **Botones de ventana**: minimizar, maximizar/restaurar y cerrar en SVG, con hover neón (cian para minimizar/maximizar, rosa para cerrar) y anillo de foco para teclado. El ícono de maximizar alterna entre `□` y `❐` según el estado real de la ventana.
+- **Ajuste de layout**: el cuerpo ahora es columna flex (barra + contenido), y el contenedor usa `flex: 1` en lugar de `height: 100vh`. El toast se desplazó debajo de la barra.
+- **Verificado en vivo**: menú `null`, maximizar/restaurar/minimizar funcionan, y el webview sigue llenando el panel derecho (660px = 700 - 40px de la barra).

@@ -17,6 +17,7 @@
   --text-dim: #b9b9e8;
   --font-display: 'Orbitron', 'Manrope Variable', 'Manrope', sans-serif;
   --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+  --titlebar-h: 40px;
 }
 
 /* Estilos generales para html y body */
@@ -33,14 +34,109 @@ body {
   color: var(--text);
   overflow: hidden;
   background: var(--bg-0);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Barra de título custom ---------- */
+
+#titlebar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--titlebar-h);
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #170b31 0%, #0b0520 100%);
+  border-bottom: 1px solid rgba(255, 110, 199, 0.35);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45), inset 0 0 14px rgba(157, 77, 255, 0.08);
+  -webkit-app-region: drag; /* permite arrastrar la ventana */
+  user-select: none;
+}
+
+.titlebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.1rem;
+}
+
+.titlebar-logo {
+  color: var(--neon-magenta);
+  font-size: 1.05rem;
+  text-shadow: 0 0 10px rgba(255, 110, 199, 0.9);
+}
+
+.titlebar-title {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.25);
+}
+
+.titlebar-controls {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+.win-btn {
+  -webkit-app-region: no-drag;
+  width: 46px;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.win-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.win-btn:hover {
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--neon-cyan);
+  box-shadow: inset 0 0 14px rgba(0, 240, 255, 0.18);
+}
+
+.win-btn:active {
+  transform: none;
+}
+
+.win-btn:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: -3px;
+}
+
+.win-close:hover {
+  background: var(--neon-pink);
+  color: #140826;
+  box-shadow: 0 0 20px rgba(255, 47, 146, 0.7), inset 0 0 14px rgba(255, 47, 146, 0.3);
 }
 
 /* Contenedor principal con diseño en grid */
 #container {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  height: 100vh;
-  width: 100vw;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
 }
 
 /* ---------- Panel izquierdo: fondo synthwave ---------- */
@@ -415,7 +511,7 @@ webview {
 
 #toast {
   position: fixed;
-  top: 1.2rem;
+  top: calc(var(--titlebar-h) + 1.2rem);
   left: 50%;
   transform: translateX(-50%) translateY(-160%);
   background-color: rgba(10, 5, 22, 0.92);

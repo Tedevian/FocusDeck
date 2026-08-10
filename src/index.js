@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -6,11 +6,18 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+// Quita la barra de menú por defecto (File, Edit, View...).
+// Se llama dentro de whenReady por seguridad en todas las plataformas.
+const removeMenu = () => {
+  Menu.setApplicationMenu(null);
+};
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 700,
+    frame: false, // Sin marco del sistema: dibujamos nuestra propia barra
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -19,6 +26,16 @@ const createWindow = () => {
     },
   });
 
+  // Informa al renderer si la ventana está maximizada (inicial o al cambiar).
+  const sendMaxState = () => {
+    if (!mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('window-maximized-changed', mainWindow.isMaximized());
+    }
+  };
+  mainWindow.on('maximize', sendMaxState);
+  mainWindow.on('unmaximize', sendMaxState);
+  mainWindow.webContents.on('did-finish-load', sendMaxState);
+
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
@@ -26,10 +43,30 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools();
 };
 
+// Controles de ventana: los botones custom de la barra de título.
+ipcMain.on('window-minimize', (event) => {
+  BrowserWindow.fromWebContents(event.sender)?.minimize();
+});
+
+ipcMain.on('window-toggle-maximize', (event) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (!win) return;
+  if (win.isMaximized()) {
+    win.unmaximize();
+  } else {
+    win.maximize();
+  }
+});
+
+ipcMain.on('window-close', (event) => {
+  BrowserWindow.fromWebContents(event.sender)?.close();
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  removeMenu();
   createWindow();
 
   // On OS X it's common to re-create a window in the app when the
